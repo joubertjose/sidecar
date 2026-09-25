@@ -129,6 +129,7 @@ impl LLMBroker {
             LLMProviderAPIKeys::GoogleAIStudio(_) => LLMProvider::GoogleAIStudio,
             LLMProviderAPIKeys::OpenRouter(_) => LLMProvider::OpenRouter,
             LLMProviderAPIKeys::GroqProvider(_) => LLMProvider::Groq,
+            LLMProviderAPIKeys::MistralProvider(_) => LLMProvider::Mistral,
         }
     }
 
@@ -160,6 +161,7 @@ impl LLMBroker {
             LLMProviderAPIKeys::GoogleAIStudio(_) => LLMProvider::GoogleAIStudio,
             LLMProviderAPIKeys::OpenRouter(_) => LLMProvider::OpenRouter,
             LLMProviderAPIKeys::GroqProvider(_) => LLMProvider::Groq,
+            LLMProviderAPIKeys::MistralProvider(_) => LLMProvider::Mistral,
         };
         let provider = self.providers.get(&provider_type);
         if let Some(provider) = provider {
@@ -406,6 +408,7 @@ impl LLMBroker {
             LLMProviderAPIKeys::GoogleAIStudio(_) => LLMProvider::GoogleAIStudio,
             LLMProviderAPIKeys::OpenRouter(_) => LLMProvider::OpenRouter,
             LLMProviderAPIKeys::GroqProvider(_) => LLMProvider::Groq,
+            LLMProviderAPIKeys::MistralProvider(_) => LLMProvider::Mistral,
         };
         let provider = self.providers.get(&provider_type);
         if let Some(provider) = provider {

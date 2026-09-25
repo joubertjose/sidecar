@@ -40,6 +40,7 @@ pub enum LLMProvider {
     GoogleAIStudio,
     OpenRouter,
     Groq,
+    Mistral,
 }
 
 impl std::fmt::Display for LLMProvider {
@@ -58,6 +59,7 @@ impl std::fmt::Display for LLMProvider {
             LLMProvider::GoogleAIStudio => write!(f, "GoogleAIStudio"),
             LLMProvider::OpenRouter => write!(f, "OpenRouter"),
             LLMProvider::Groq => write!(f, "Groq"),
+            LLMProvider::Mistral => write!(f, "Mistral"),
         }
     }
 }
@@ -87,6 +89,8 @@ pub enum LLMProviderAPIKeys {
     GoogleAIStudio(GoogleAIStudioKey),
     OpenRouter(OpenRouterAPIKey),
     GroqProvider(GroqProviderAPIKey),
+    MistralProvider(MistralProviderAPIKey),
+
 }
 
 impl LLMProviderAPIKeys {
@@ -119,6 +123,7 @@ impl LLMProviderAPIKeys {
             LLMProviderAPIKeys::GoogleAIStudio(_) => LLMProvider::GoogleAIStudio,
             LLMProviderAPIKeys::OpenRouter(_) => LLMProvider::OpenRouter,
             LLMProviderAPIKeys::GroqProvider(_) => LLMProvider::Groq,
+	    LLMProviderAPIKeys::MistralProvider(_) => LLMProvider::Mistral,
         }
     }
 
@@ -231,6 +236,13 @@ impl LLMProviderAPIKeys {
                     None
                 }
             }
+            LLMProvider::Mistral => {
+                if let LLMProviderAPIKeys::MistralProvider(mistral_api_key) = self {
+                    Some(LLMProviderAPIKeys::MistralProvider(mistral_api_key.clone()))
+                } else {
+                    None
+                }
+            }
         }
     }
 }
@@ -264,6 +276,18 @@ pub struct GroqProviderAPIKey {
 }
 
 impl GroqProviderAPIKey {
+    pub fn new(api_key: String) -> Self {
+        Self { api_key }
+    }
+}
+
+/// Mistral API key which is used to use an account on Mistral
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize)]
+pub struct MistralProviderAPIKey {
+    pub api_key: String,
+}
+
+impl MistralProviderAPIKey {
     pub fn new(api_key: String) -> Self {
         Self { api_key }
     }
